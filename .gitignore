@@ -1,0 +1,14 @@
+# Virtual Environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# User-provided data files
+# Ignore all files within the data/ directory
+/data/*
