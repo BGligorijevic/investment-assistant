@@ -5,8 +5,8 @@ import google.generativeai as genai
 # Import from local config file
 from config import VISUAL_ANALYST_MODEL
 
-# Point to our data folder - this assumes a `data` folder at the project root
-DATA_DIR = Path.cwd() / "data"
+# Point to our data folder
+DATA_DIR = Path.cwd() / "subagents" / "document_analyst" / "data"
 
 def get_financial_document_answer(query: str) -> str:
     """

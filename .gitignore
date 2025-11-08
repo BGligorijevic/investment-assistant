@@ -11,4 +11,7 @@ __pycache__/
 
 # User-provided data files
 # Ignore all files within the data/ directory
-/data/*
+data/
+
+# Generated model artifacts
+/models/
