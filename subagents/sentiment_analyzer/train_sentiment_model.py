@@ -7,12 +7,10 @@ from transformers import (
     TrainingArguments,
     Trainer,
 )
-from sklearn.metrics import accuracy_score, f1_score
 
 # --- CONFIGURATION ---
 MODEL_NAME = "distilbert/distilbert-base-uncased"
 DATASET_NAME = "financial_phrasebank"
-# Adjusted the output directory to be relative to the project root
 OUTPUT_DIR = "./models/sentiment_analyzer"
 
 def main():

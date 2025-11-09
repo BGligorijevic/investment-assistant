@@ -9,9 +9,12 @@ __pycache__/
 # Secrets
 .env
 
-# User-provided data files
-# Ignore all files within the data/ directory
+# User-provided data files and datasets
 data/
+dataset.jsonl
 
 # Generated model artifacts
 /models/
+
+# MacOS
+.DS_Store

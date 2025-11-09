@@ -1,11 +1,20 @@
 from transformers import pipeline
 from pathlib import Path
+from langchain_core.tools import BaseTool
+from langchain_core.tools import Tool
 
 # Path to the fine-tuned model we just trained
 MODEL_PATH = Path.cwd() / "models" / "sentiment_analyzer"
 
-# We will load the pipeline lazily (only when first used) to prevent startup errors.
+# We will load the pipeline lazily (only when first used)
 sentiment_pipeline = None
+
+def get_sentiment_tool() -> BaseTool:
+    return Tool(
+                name="SentimentAnalyzer",
+                func=get_sentiment,
+                description="Analyzes the sentiment of a news headline or a short text. Input must be a single string of text."
+            )
 
 def get_sentiment(text: str) -> str:
     """

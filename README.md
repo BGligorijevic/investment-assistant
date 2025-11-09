@@ -3,8 +3,9 @@ Investment Assistant is a proof-of-concept AI agent designed to aid in investmen
 
 It relies internally on several tools to do the job:
 *   **Document Analyzer (RAG):** A Retrieval-Augmented Generation system using the Gemini API to analyze financial reports from a local, proprietary knowledge base.
+*   **Structured Data Extractor:** A tool that uses a locally-run, fine-tuned model to parse unstructured text from a financial table (e.g., a cash flow statement) into a structured, machine-readable JSON object. This enables data-entry automation.
 *   **Web Search:** A tool to search the web for real-time information and news.
-*   **Fine-Tuned Sentiment Analyzer:** A custom sentiment analysis model, fine-tuned on financial data to provide domain-specific sentiment scores for news headlines.
+*   **Fine-Tuned Sentiment Analyzer:** A custom classification locally-run model, fine-tuned on financial data to provide domain-specific sentiment scores for news headlines.
 
 ## Requirements
 1. Decent hardware
@@ -26,6 +27,12 @@ This is meant to hold proprietary data about certain companies not found on the 
 python subagents/sentiment_analyzer/train_sentiment_model.py
 ```
 The training script is configured to run on the CPU by default (`no_cuda=True`). This is to ensure compatibility and avoid potential runtime errors with Apple Silicon (MPS) GPUs. If you are running on a machine with a compatible NVIDIA GPU and have CUDA installed, you can remove the `no_cuda=True` parameter from the `TrainingArguments` to enable GPU-accelerated training.
+
+6. (optional) If structured data extraction is required, prepare the dataset and fine-tune the structured data extraction subagent's model (one-time action):
+```
+python subagents/structured_data_extractor/create_dataset.py
+python subagents/structured_data_extractor/train_structured_data_extractor.py
+```
 
 ## Running and examples
 ```
