@@ -1,0 +1,57 @@
+@startuml
+!theme plain
+
+title Investment Assistant Architecture
+
+package "Investment Assistant" {
+    component "Main Agent (AgentExecutor)" as MainAgent
+
+    folder "Subagents / Tools" {
+        component "Document Analyzer (RAG)" as DocAnalyzer
+        component "Structured Data Extractor" as DataExtractor
+        component "Web Search" as WebSearch
+        component "Sentiment Analyzer" as SentimentAnalyzer
+    }
+}
+
+package "Models & APIs" {
+    component "Gemini API"
+    component "Tavily API"
+    database "Sentiment Model\n(Local Fine-tuned)" as SentimentModel
+    database "Data Extractor Model\n(Local Fine-tuned)" as ExtractorModel
+}
+
+
+MainAgent --> DocAnalyzer : uses (FinancialDocumentAnalyst)
+MainAgent --> DataExtractor : uses (StructuredDataExtractor)
+MainAgent --> WebSearch : uses (tavily_search_results_json)
+MainAgent --> SentimentAnalyzer : uses (SentimentAnalyzer)
+
+DocAnalyzer -- "Gemini API" : interacts with
+DataExtractor -- ExtractorModel : uses
+WebSearch -- "Tavily API" : interacts with
+SentimentAnalyzer -- SentimentModel : uses
+
+note left of DocAnalyzer
+  Retrieval-Augmented Generation
+  Analyzes financial reports
+  from local knowledge base
+end note
+
+note left of DataExtractor
+  Parses unstructured text
+  from financial tables into JSON
+end note
+
+note right of SentimentAnalyzer
+  Custom classification model
+  Fine-tuned on financial data
+  for domain-specific sentiment
+end note
+
+note right of WebSearch
+  Searches web for
+  real-time information and news
+end note
+
+@enduml
