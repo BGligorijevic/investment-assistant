@@ -15,6 +15,5 @@ if not TAVILY_API_KEY:
 
 genai.configure(api_key=GOOGLE_API_KEY)
 
-# Centralized model names
 MANAGER_MODEL = "gemini-2.5-pro"            # The official API identifier for the latest Pro model.
 VISUAL_ANALYST_MODEL = "gemini-2.5-flash"   # The official API identifier for the latest Flash model.

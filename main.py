@@ -27,7 +27,7 @@ def run_assistant():
 
     tools = base_tools
 
-    # Conditionally add the sentiment tool, if fine-tuned sentiment model is provided
+    # Conditionally add the sentiment tool
     sentiment_model_path = Path.cwd() / "models" / "sentiment_analyzer"
     if sentiment_model_path.exists():
         print("INFO: Fine-tuned sentiment model found. Adding SentimentAnalyzer tool.")

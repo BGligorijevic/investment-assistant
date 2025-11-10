@@ -5,7 +5,6 @@ from langchain_core.tools import BaseTool
 from langchain_core.tools import Tool
 from config import VISUAL_ANALYST_MODEL
 
-# Point to our data folder
 DATA_DIR = Path.cwd() / "subagents" / "document_analyst" / "data"
 
 
@@ -36,12 +35,15 @@ def get_financial_document_answer(query: str) -> str:
 
     quarter = f"q{quarter_match.group(1)}"
     year = year_match.group(1)
-    
+
     # Exclude common query words that are title-cased but not company names.
     excluded_words = {"what", "is", "the", "for", "in", "of", "on", "at", "a", "an"}
     potential_companies = [
-        word for word in query.split()
-        if word.istitle() and not re.match(r"Q\d", word, re.IGNORECASE) and word.lower() not in excluded_words
+        word
+        for word in query.split()
+        if word.istitle()
+        and not re.match(r"Q\d", word, re.IGNORECASE)
+        and word.lower() not in excluded_words
     ]
     if not potential_companies:
         return "Tool Error: No company name could be identified in the query."

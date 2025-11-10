@@ -8,7 +8,6 @@ from transformers import (
     Trainer,
 )
 
-# --- CONFIGURATION ---
 MODEL_NAME = "distilbert/distilbert-base-uncased"
 DATASET_NAME = "financial_phrasebank"
 OUTPUT_DIR = "./models/sentiment_analyzer"
@@ -25,10 +24,10 @@ def main():
     # We use the 'sentences_allagree' split for higher quality data
     dataset = load_dataset(DATASET_NAME, "sentences_allagree", split="train")
 
-    # To make training faster for this demonstration, let's select a subset of the data.
-    dataset = dataset.select(range(1000)) # Using 1000 examples for a quick run.
+    # To make training faster for this demonstration, select a subset of the data.
+    dataset = dataset.select(range(1000))
 
-    # The labels are 0: negative, 1: neutral, 2: positive. We need to map them.
+    # The labels are 0: negative, 1: neutral, 2: positive.
     labels = ["negative", "neutral", "positive"]
     id2label = {i: label for i, label in enumerate(labels)}
     label2id = {label: i for i, label in enumerate(labels)}
@@ -52,11 +51,11 @@ def main():
     training_args = TrainingArguments(
         output_dir=OUTPUT_DIR,
         learning_rate=2e-5,
-        num_train_epochs=1, # One epoch is enough to demonstrate the process
+        num_train_epochs=1,
         weight_decay=0.01,
-        evaluation_strategy="no", # We don't need evaluation for this project
+        eval_strategy="no",
         save_strategy="epoch",
-        no_cuda=True,  # This is a more forceful flag to disable all GPU/MPS usage
+        use_cpu=True,
     )
 
     trainer = Trainer(model=model, args=training_args, train_dataset=tokenized_dataset)
